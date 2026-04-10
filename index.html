@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Top-Up | Professional Gaming</title>
-    <!-- استيراد الخطوط الاحترافية -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -59,7 +57,7 @@
             text-transform: uppercase;
         }
 
-        /* شبكة الألعاب - تصميم نظيف وفخم */
+        /* Game grid - clean and premium design */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -101,7 +99,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* المودال الزجاجي */
+        /* Glass modal */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85);
             display: none; align-items: center; justify-content: center; z-index: 1000;
@@ -173,7 +171,7 @@
             opacity: 0.9;
         }
 
-        /* التحميل والتحقق */
+        /* Loading and Verification */
         .loader {
             width: 45px; height: 45px;
             border: 3px solid rgba(255,255,255,0.1);
@@ -205,54 +203,52 @@
 
     <div class="container">
         <div class="game-grid" id="gameGrid">
-            <!-- الألعاب هنا -->
-        </div>
+            </div>
     </div>
 
-    <!-- نافذة المودال -->
     <div class="modal-overlay" id="overlay">
         <div class="modal">
             
             <div id="step1" class="step active">
-                <h2 id="m-game" style="font-size: 24px; font-weight: 800;">اللعبة</h2>
+                <h2 id="m-game" style="font-size: 24px; font-weight: 800;">Game</h2>
                 <div class="input-box">
-                    <label class="label" id="m-label">ID الحساب</label>
-                    <input type="text" class="input-field" id="user-id" placeholder="اكتب هنا...">
+                    <label class="label" id="m-label">Account ID</label>
+                    <input type="text" class="input-field" id="user-id" placeholder="Enter here...">
                     
-                    <label class="label">الكمية</label>
+                    <label class="label">Amount</label>
                     <select class="input-field" id="amounts"></select>
                 </div>
-                <button class="btn" onclick="toStep2()">استمرار</button>
+                <button class="btn" onclick="toStep2()">Continue</button>
             </div>
 
             <div id="step2" class="step">
                 <div class="loader"></div>
-                <h3 style="font-weight: 700;">جاري الاتصال...</h3>
-                <p style="color: #555; font-size: 14px; margin-top: 10px;">نقوم بإنشاء اتصال آمن بسيرفرات اللعبة</p>
+                <h3 style="font-weight: 700;">Connecting...</h3>
+                <p style="color: #555; font-size: 14px; margin-top: 10px;">Establishing a secure connection to game servers.</p>
             </div>
 
             <div id="step3" class="step">
-                <h2 style="font-weight: 800; font-size: 22px;">التحقق البشري</h2>
-                <p style="color: #777; font-size: 14px; margin: 15px 0 25px;">الخطوة الأخيرة! أكمل أحد العروض أدناه لإرسال الموارد إلى الحساب <span id="v-id" style="color:#fff;"></span>.</p>
+                <h2 style="font-weight: 800; font-size: 22px;">Human Verification</h2>
+                <p style="color: #777; font-size: 14px; margin: 15px 0 25px;">Final step! Complete one of the offers below to send resources to the account <span id="v-id" style="color:#fff;"></span>.</p>
                 <div id="offers"></div>
             </div>
 
             <div id="step4" class="step">
                 <div style="font-size: 50px; margin-bottom: 15px;">✓</div>
-                <h2 style="font-weight: 800;">تم إرسال الطلب</h2>
-                <p style="color: #666; font-size: 14px; margin-top: 10px;">يرجى الانتظار من 5 إلى 10 دقائق لمعالجة العملية.</p>
-                <button class="btn" style="margin-top: 25px; background: #1a1a1a; color: #fff;" onclick="location.reload()">إنهاء</button>
+                <h2 style="font-weight: 800;">Request Sent</h2>
+                <p style="color: #666; font-size: 14px; margin-top: 10px;">Please wait 5 to 10 minutes for the process to complete.</p>
+                <button class="btn" style="margin-top: 25px; background: #1a1a1a; color: #fff;" onclick="location.reload()">Finish</button>
             </div>
 
         </div>
     </div>
 
     <script>
-        // القائمة النهائية بعد حذف الألعاب المطلوبة
+        // Final list after removing requested games
         const games = [
-            { name: 'Roblox', label: 'اسم المستخدم', img: 'https://img.icons8.com/color/512/roblox.png', am: ['800 Robux', '1,700 Robux', '4,500 Robux'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
-            { name: 'Fortnite', label: 'إيميل إيبك جيمز', img: 'https://img.icons8.com/color/512/fortnite.png', am: ['2,800 V-Bucks', '5,000 V-Bucks', '13,500 V-Bucks'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
-            { name: 'Free Fire', label: 'الـ UID الخاص باللاعب', img: 'https://img.icons8.com/color/512/free-fire.png', am: ['1,060 Diamonds', '2,180 Diamonds', '5,600 Diamonds'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'Roblox', label: 'Username', img: 'https://img.icons8.com/color/512/roblox.png', am: ['800 Robux', '1,700 Robux', '4,500 Robux'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'Fortnite', label: 'Epic Games Email', img: 'https://img.icons8.com/color/512/fortnite.png', am: ['2,800 V-Bucks', '5,000 V-Bucks', '13,500 V-Bucks'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'Free Fire', label: 'Player UID', img: 'https://img.icons8.com/color/512/free-fire.png', am: ['1,060 Diamonds', '2,180 Diamonds', '5,600 Diamonds'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
             { name: 'Valorant', label: 'Riot ID', img: 'https://img.icons8.com/color/512/valorant.png', am: ['2,050 VP', '5,350 VP', '11,000 VP'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
             { name: 'NBA 2K25', label: 'PSN/Xbox ID', img: 'https://img.icons8.com/color/512/basketball.png', am: ['75,000 VC', '200,000 VC', '450,000 VC'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
             { name: 'Call of Duty', label: 'Activision ID', img: 'https://img.icons8.com/color/512/call-of-duty-warzone.png', am: ['2,400 CP', '5,000 CP', '9,500 CP'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' }
@@ -290,8 +286,8 @@
             setTimeout(() => {
                 switchStep(3);
                 document.getElementById('offers').innerHTML = `
-                    <a href="${current.link}" target="_blank" class="offer" onclick="finish()">التحقق البشري الآن</a>
-                    <a href="${current.link}" target="_blank" class="offer" onclick="finish()">تأكيد إرسال الجواهر/النقاط</a>
+                    <a href="${current.link}" target="_blank" class="offer" onclick="finish()">Verify Now</a>
+                    <a href="${current.link}" target="_blank" class="offer" onclick="finish()">Confirm Order</a>
                 `;
             }, 3000);
         }
