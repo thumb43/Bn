@@ -4,192 +4,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SITE APP - Gaming Central</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Elite Top-Up | Professional Gaming</title>
+    <!-- استيراد الخطوط الاحترافية -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #020617;
-            --neon-green: #10b981;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --primary-accent: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-dark: #050505;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-base); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        header { text-align: center; padding: 40px 0; }
-        .logo { font-size: 30px; font-weight: 900; color: var(--neon-green); text-decoration: none; letter-spacing: 3px; }
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 20%, #1a1a2e 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, #16213e 0%, transparent 40%);
+            color: #fff;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        .hero { text-align: center; margin-bottom: 50px; }
-        .hero h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; }
-        .hero p { color: var(--text-muted); font-size: 1.1rem; }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-
-        /* الحل النهائي للصور: تصاميم برمجية جذابة */
-        .card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-            transition: 0.3s;
-            cursor: pointer;
+        header {
             text-align: center;
-            position: relative;
+            margin-bottom: 60px;
         }
-        .card:hover { transform: translateY(-10px); border-color: var(--neon-green); }
 
-        .game-visual {
-            width: 100%;
-            height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 2rem;
-            color: white;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 14px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        /* تدرجات ألوان خاصة لكل لعبة لضمان الجاذبية */
-        .bg-roblox { background: linear-gradient(135deg, #450a0a, #ef4444); }
-        .bg-toca { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
-        .bg-among { background: linear-gradient(135deg, #064e3b, #10b981); }
-        .bg-candy { background: linear-gradient(135deg, #701a75, #d946ef); }
-        .bg-subway { background: linear-gradient(135deg, #78350f, #f59e0b); }
+        /* شبكة الألعاب - تصميم نظيف وفخم */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 24px;
+            justify-content: center;
+        }
 
-        .card-info { padding: 20px; }
-        .badge { background: var(--neon-green); color: #000; padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 900; margin-bottom: 10px; display: inline-block; }
-        
-        .btn-claim {
-            background: var(--neon-green);
+        .game-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .game-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+
+        .game-name {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* المودال الزجاجي */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+            backdrop-filter: blur(15px);
+        }
+
+        .modal {
+            background: #111;
+            border: 1px solid var(--glass-border);
+            width: 90%; max-width: 400px;
+            border-radius: 40px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+        }
+
+        .step { display: none; }
+        .active { display: block; }
+
+        .input-box {
+            text-align: left;
+            margin-top: 25px;
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 5px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 18px;
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #fff;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 20px;
+            background: #fff;
             color: #000;
             border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 12px;
-            font-weight: 900;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 15px;
             cursor: pointer;
+            transition: 0.3s;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Modal */
-        .modal-overlay {
-            position: fixed; top:0; left:0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 1000;
-        }
-        .modal-content {
-            background: #0f172a; width: 90%; max-width: 400px; border-radius: 30px; 
-            padding: 30px; text-align: center; border: 1px solid var(--neon-green);
+        .btn:hover {
+            transform: scale(0.98);
+            opacity: 0.9;
         }
 
-        .loader-container { display: none; margin: 20px 0; }
-        .bar { width: 100%; height: 10px; background: #334155; border-radius: 10px; overflow: hidden; }
-        .fill { width: 0%; height: 100%; background: var(--neon-green); transition: 0.1s; }
+        /* التحميل والتحقق */
+        .loader {
+            width: 45px; height: 45px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .verify-screen { display: none; }
         .offer {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--neon-green);
-            padding: 15px; margin: 10px 0; border-radius: 15px; cursor: pointer; font-weight: 700;
+            display: block; width: 100%; padding: 18px;
+            background: #1a1a1a; border-radius: 15px;
+            color: #fff; text-decoration: none; font-weight: 600;
+            margin-bottom: 12px; border: 1px solid #222;
+            transition: 0.2s;
         }
-        .offer:hover { background: rgba(16, 185, 129, 0.1); }
+
+        .offer:hover { background: #222; border-color: #444; }
+
     </style>
 </head>
 <body>
 
-<header><a href="#" class="logo">SITE APP</a></header>
+    <header class="container">
+        <div class="logo">Elite Recharge</div>
+        <div class="tagline">Premium Gaming Solutions</div>
+    </header>
 
-<div class="container">
-    <div class="hero">
-        <h1>Unlock Premium Rewards</h1>
-        <p>Choose your game and claim your exclusive content pack.</p>
-    </div>
-
-    <div class="grid" id="mainGrid"></div>
-</div>
-
-<div class="modal-overlay" id="modal">
-    <div class="modal-content">
-        <div id="step-1">
-            <div id="m-visual" class="game-visual" style="border-radius: 20px; margin-bottom: 20px;"></div>
-            <h2 id="m-title"></h2>
-            <p id="m-desc" style="color: var(--text-muted); margin: 15px 0;"></p>
-            <button class="btn-claim" onclick="goLoading()">Claim Package</button>
-        </div>
-
-        <div id="step-2" class="loader-container">
-            <p id="status" style="color: var(--neon-green); font-weight: 800; margin-bottom: 10px;">CONNECTING...</p>
-            <div class="bar"><div class="fill" id="fill"></div></div>
-        </div>
-
-        <div id="step-3" class="verify-screen">
-            <h2 style="color: #ef4444; font-weight: 900;">VERIFICATION REQUIRED</h2>
-            <p style="font-size: 0.9rem; margin: 15px 0;">Please complete one task below to prove you are not a bot and unlock your items.</p>
-            <div class="offer" onclick="finish()">📱 SMS Verification</div>
-            <div class="offer" onclick="finish()">📥 Download & Install</div>
-            <p style="font-size: 0.7rem; color: #64748b; margin-top: 15px;">Secure 256-bit Connection.</p>
+    <div class="container">
+        <div class="game-grid" id="gameGrid">
+            <!-- الألعاب هنا -->
         </div>
     </div>
-</div>
 
-<script>
-    const games = [
-        { id: 'roblox', title: 'Roblox', class: 'bg-roblox', desc: 'Get 10,000 Robux and items.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
-        { id: 'toca', title: 'Toca Life', class: 'bg-toca', desc: 'Unlock all maps and pets.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74463' },
-        { id: 'among', title: 'Among Us', class: 'bg-among', desc: 'All skins and pets unlocked.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=73209' },
-        { id: 'candy', title: 'Candy Crush', class: 'bg-candy', desc: 'Unlimited lives and boosters.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
-        { id: 'subway', title: 'Subway Surf', class: 'bg-subway', desc: 'Unlimited coins and keys.', url: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74463' }
-    ];
-
-    const grid = document.getElementById('mainGrid');
-    let targetUrl = "";
-
-    games.forEach(g => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `
-            <div class="game-visual ${g.class}">${g.title}</div>
-            <div class="card-info">
-                <span class="badge">USA ONLY</span>
-                <h3>${g.title} Pack</h3>
-                <p style="font-size: 0.8rem; color: #94a3b8; margin: 10px 0;">Premium Edition</p>
-                <button class="btn-claim" style="padding: 8px;">Select</button>
+    <!-- نافذة المودال -->
+    <div class="modal-overlay" id="overlay">
+        <div class="modal">
+            
+            <div id="step1" class="step active">
+                <h2 id="m-game" style="font-size: 24px; font-weight: 800;">اللعبة</h2>
+                <div class="input-box">
+                    <label class="label" id="m-label">ID الحساب</label>
+                    <input type="text" class="input-field" id="user-id" placeholder="اكتب هنا...">
+                    
+                    <label class="label">الكمية</label>
+                    <select class="input-field" id="amounts"></select>
+                </div>
+                <button class="btn" onclick="toStep2()">استمرار</button>
             </div>
-        `;
-        div.onclick = () => {
-            targetUrl = g.url;
-            document.getElementById('m-visual').className = 'game-visual ' + g.class;
-            document.getElementById('m-visual').innerText = g.title;
-            document.getElementById('m-title').innerText = g.title + " Reward";
-            document.getElementById('m-desc').innerText = g.desc;
-            document.getElementById('modal').style.display = 'flex';
-            document.getElementById('step-1').style.display = 'block';
-            document.getElementById('step-2').style.display = 'none';
-            document.getElementById('step-3').style.display = 'none';
-        };
-        grid.appendChild(div);
-    });
 
-    function goLoading() {
-        document.getElementById('step-1').style.display = 'none';
-        document.getElementById('step-2').style.display = 'block';
-        let w = 0;
-        let f = document.getElementById('fill');
-        let s = document.getElementById('status');
-        const iv = setInterval(() => {
-            w++; f.style.width = w + '%';
-            if(w==30) s.innerText = "SEARCHING USER...";
-            if(w==60) s.innerText = "PACKING ITEMS...";
-            if(w==90) s.innerText = "FINALIZING...";
-            if(w>=100) { clearInterval(iv); document.getElementById('step-2').style.display = 'none'; document.getElementById('step-3').style.display = 'block'; }
-        }, 40);
-    }
+            <div id="step2" class="step">
+                <div class="loader"></div>
+                <h3 style="font-weight: 700;">جاري الاتصال...</h3>
+                <p style="color: #555; font-size: 14px; margin-top: 10px;">نقوم بإنشاء اتصال آمن بسيرفرات اللعبة</p>
+            </div>
 
-    function finish() { window.location.href = targetUrl; }
-</script>
+            <div id="step3" class="step">
+                <h2 style="font-weight: 800; font-size: 22px;">التحقق البشري</h2>
+                <p style="color: #777; font-size: 14px; margin: 15px 0 25px;">الخطوة الأخيرة! أكمل أحد العروض أدناه لإرسال الموارد إلى الحساب <span id="v-id" style="color:#fff;"></span>.</p>
+                <div id="offers"></div>
+            </div>
+
+            <div id="step4" class="step">
+                <div style="font-size: 50px; margin-bottom: 15px;">✓</div>
+                <h2 style="font-weight: 800;">تم إرسال الطلب</h2>
+                <p style="color: #666; font-size: 14px; margin-top: 10px;">يرجى الانتظار من 5 إلى 10 دقائق لمعالجة العملية.</p>
+                <button class="btn" style="margin-top: 25px; background: #1a1a1a; color: #fff;" onclick="location.reload()">إنهاء</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // القائمة النهائية بعد حذف الألعاب المطلوبة
+        const games = [
+            { name: 'Roblox', label: 'اسم المستخدم', img: 'https://img.icons8.com/color/512/roblox.png', am: ['800 Robux', '1,700 Robux', '4,500 Robux'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'Fortnite', label: 'إيميل إيبك جيمز', img: 'https://img.icons8.com/color/512/fortnite.png', am: ['2,800 V-Bucks', '5,000 V-Bucks', '13,500 V-Bucks'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'Free Fire', label: 'الـ UID الخاص باللاعب', img: 'https://img.icons8.com/color/512/free-fire.png', am: ['1,060 Diamonds', '2,180 Diamonds', '5,600 Diamonds'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'Valorant', label: 'Riot ID', img: 'https://img.icons8.com/color/512/valorant.png', am: ['2,050 VP', '5,350 VP', '11,000 VP'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'NBA 2K25', label: 'PSN/Xbox ID', img: 'https://img.icons8.com/color/512/basketball.png', am: ['75,000 VC', '200,000 VC', '450,000 VC'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' },
+            { name: 'Call of Duty', label: 'Activision ID', img: 'https://img.icons8.com/color/512/call-of-duty-warzone.png', am: ['2,400 CP', '5,000 CP', '9,500 CP'], link: 'https://singingfiles.com/show.php?l=0&u=2449875&id=74581' }
+        ];
+
+        const grid = document.getElementById('gameGrid');
+        let current = null;
+
+        games.forEach(g => {
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            card.innerHTML = `<img src="${g.img}" class="game-icon"><div class="game-name">${g.name}</div>`;
+            card.onclick = () => {
+                current = g;
+                document.getElementById('m-game').innerText = g.name;
+                document.getElementById('m-label').innerText = g.label;
+                const sel = document.getElementById('amounts');
+                sel.innerHTML = '';
+                g.am.forEach(a => sel.innerHTML += `<option>${a}</option>`);
+                document.getElementById('overlay').style.display = 'flex';
+                switchStep(1);
+            };
+            grid.appendChild(card);
+        });
+
+        function switchStep(n) {
+            document.querySelectorAll('.step').forEach((s, idx) => s.classList.toggle('active', (idx+1) === n));
+        }
+
+        function toStep2() {
+            const id = document.getElementById('user-id').value;
+            if(!id) return;
+            document.getElementById('v-id').innerText = id;
+            switchStep(2);
+            setTimeout(() => {
+                switchStep(3);
+                document.getElementById('offers').innerHTML = `
+                    <a href="${current.link}" target="_blank" class="offer" onclick="finish()">التحقق البشري الآن</a>
+                    <a href="${current.link}" target="_blank" class="offer" onclick="finish()">تأكيد إرسال الجواهر/النقاط</a>
+                `;
+            }, 3000);
+        }
+
+        function finish() { setTimeout(() => switchStep(4), 2000); }
+
+        document.getElementById('overlay').onclick = (e) => {
+            if(e.target.id === 'overlay') document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
-
