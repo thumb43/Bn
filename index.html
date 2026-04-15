@@ -15,17 +15,16 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-        ::selection {
-            background-color: rgba(212, 175, 55, 0.3);
-        }
+        ::selection { background-color: rgba(212, 175, 55, 0.3); }
         .perspective-1000 { perspective: 1000px; }
         .transform-gpu { transform-style: preserve-3d; backface-visibility: hidden; }
         
-        /* Modal Transition classes */
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         .zoom-in { animation: zoomIn 0.3s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .gold-glow { box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
     </style>
 </head>
 <body class="min-h-screen relative">
@@ -49,14 +48,13 @@
 
     <!-- Grid Container -->
     <main id="games-grid" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 pb-40 relative z-20">
-        <!-- Cards will be injected here by JavaScript -->
+        <!-- Cards injected by JS -->
     </main>
 
     <!-- Modal System -->
     <div id="modal-container" class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-[100] hidden items-center justify-center p-8">
         <div class="w-full max-w-md bg-[#0a0a0a] border border-[#D4AF37]/20 p-12 rounded-[60px] text-center shadow-2xl relative overflow-hidden">
             
-            <!-- Close Button -->
             <button onclick="closeModal()" class="absolute top-6 right-6 text-neutral-800 hover:text-white transition-colors z-50">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -68,17 +66,17 @@
                 <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden mt-6 mb-2">
                     <div id="progress-bar" class="h-full bg-[#D4AF37] shadow-[0_0_15px_#D4AF37] w-0 transition-all duration-100"></div>
                 </div>
-                <div id="progress-text" class="text-[#D4AF37] font-mono text-xs font-bold tracking-widest">0% PREPARING</div>
+                <div id="progress-text" class="text-[#D4AF37] font-mono text-xs font-bold tracking-widest uppercase">0% Initializing</div>
             </div>
 
-            <!-- Step 2: Verification Needed -->
+            <!-- Step 2: Verification -->
             <div id="step-verify" class="hidden">
                 <div class="w-24 h-24 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-[40px] flex items-center justify-center mx-auto mb-8 shadow-2xl">
                     <svg class="w-10 h-10 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                 </div>
                 <h3 class="text-4xl font-black uppercase italic mb-4 text-white">Human Check</h3>
                 <p class="text-neutral-500 text-sm font-bold mb-10 leading-relaxed px-4">
-                    Complete one verification task to prove you are not a bot and unlock your direct high-speed link.
+                    Complete one verification task below to prove you are not a bot and unlock your premium direct link.
                 </p>
                 <button onclick="handleVerifyClick()" class="w-full py-6 bg-[#D4AF37] text-black text-xl font-black rounded-3xl shadow-[0_15px_30px_rgba(212,175,55,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-tighter cursor-pointer">
                     Verify Now
@@ -88,9 +86,8 @@
             <!-- Step 3: Waiting -->
             <div id="step-waiting" class="hidden">
                 <div class="w-20 h-20 border-4 border-white/5 border-t-[#D4AF37] rounded-full animate-spin mx-auto mb-8"></div>
-                <h3 class="text-3xl font-black uppercase italic text-white">Processing...</h3>
+                <h3 class="text-3xl font-black uppercase italic text-white">Checking Status...</h3>
                 <p class="text-[#D4AF37] text-sm font-black animate-pulse mt-4 tracking-widest">AWAITING OFFER COMPLETION</p>
-                <p class="text-neutral-600 text-[10px] font-bold uppercase tracking-widest italic mt-4">Do not close this window</p>
             </div>
 
             <!-- Step 4: Success / Direct Download -->
@@ -98,11 +95,12 @@
                 <div class="w-24 h-24 bg-emerald-500/20 border border-emerald-500/50 rounded-[40px] flex items-center justify-center mx-auto mb-8 shadow-[0_0_50px_rgba(16,185,129,0.2)]">
                   <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <h3 class="text-4xl font-black uppercase italic mb-2 text-white">Verified!</h3>
-                <p class="text-neutral-500 text-[11px] font-black tracking-widest mb-8">
-                  FILE: <span id="success-filename" class="text-[#D4AF37]"></span>
+                <h3 class="text-4xl font-black uppercase italic mb-2 text-white">Success!</h3>
+                <p class="text-neutral-500 text-[11px] font-black tracking-widest mb-8 uppercase">
+                  READY: <span id="success-filename" class="text-[#D4AF37]"></span>
                 </p>
-                <a id="direct-download-btn" href="#" target="_top" rel="noreferrer noopener" class="block w-full py-6 bg-emerald-500 text-black text-xl font-black rounded-3xl shadow-[0_15px_30px_rgba(16,185,129,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-tighter text-center">
+                <!-- We use a regular link for maximum compatibility with external servers -->
+                <a id="direct-download-btn" href="#" target="_blank" rel="noreferrer noopener" class="block w-full py-6 bg-emerald-500 text-black text-xl font-black rounded-3xl shadow-2xl hover:scale-105 active:scale-95 transition-all uppercase tracking-tighter text-center">
                   Start Download
                 </a>
             </div>
@@ -110,185 +108,130 @@
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
     <script>
-        // Database
         const games = [
             {
                 id: "toca",
                 title: "Toca World",
-                tag: "GOLDEN MOD",
+                tag: "GOLD MOD",
                 version: "v1.129.1",
                 size: "800.74 MB",
-                fileName: "toca-life-world-1.129.1-mod-t-5play.apk",
+                fileName: "toca-world-mod.apk",
                 image: "https://play-lh.googleusercontent.com/2p1aEY3_lFm50nXJvZjVTZCynEpxBFMUEBGIHB0EatLYQEGw3MmrCToXNkvRAhniCENM",
                 gradient: "from-[#FF1EAD]/20 via-black to-black",
                 btnColor: "#3DDC84",
-                features: ["All Unlocked", "Infinite Items", "Premium Maps", "No Ads"],
+                features: ["All Unlocked", "No Ads", "Premium Maps"],
                 cpaUrl: "https://singingfiles.com/show.php?l=0&u=2449875&id=74463",
-                directDownloadUrl: "https://a0375781bc284f28babebca5d9a9079b.r2.cloudflarestorage.com/toca-life-world-1.129.1-mod-t-5play.apk"
+                // Direct link to the source to avoid authorization errors
+                directDownloadUrl: "https://5play.org/index.php?do=cdn&id=16023"
             },
             {
                 id: "roblox",
                 title: "Roblox",
-                tag: "GOLDEN MOD",
+                tag: "MOD MENU",
                 version: "v2.716.875",
                 size: "744.53 MB",
-                fileName: "Roblox-2.716.875.apk",
+                fileName: "roblox-mod-menu.apk",
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA39UQzADbOjU0B5Jk9B9-dNnr5PQFchIqwjBR5Kce-Q&s=10",
                 gradient: "from-white/10 via-black to-black",
                 btnColor: "#FFFFFF",
-                features: ["Unlimited Robux", "Mod Menu", "Wallhack", "Anti-Ban"],
+                features: ["Unlimited Robux", "Wallhack", "Anti-Ban"],
                 cpaUrl: "https://singingfiles.com/show.php?l=0&u=2449875&id=74463",
-                directDownloadUrl: "https://gp4.liteapks.com/Roblox/Roblox-2.716.875.apk"
+                directDownloadUrl: "https://liteapks.com/download/roblox-94/1"
             }
         ];
-
-        // SVGs
-        const goldStarSVG = `<svg class="w-3 h-3 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>`;
-        const androidSVG = `<svg viewBox="0 0 576 512" fill="currentColor" class="w-5 h-5"><path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24m-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24m273.7-144.48,47.94-83a10,10,0,1,0-17.27-10h0l-48.54,84.07a301.25,301.25,0,0,0-246.56,0L116.18,64.45a10,10,0,1,0-17.27,10h0l48,83.24C73.06,207.31,8,300.14,8,406.84H568c0-106.7-65.06-199.53-138.85-249.39"/></svg>`;
-        const appleSVG = `<svg viewBox="0 0 384 512" fill="currentColor" class="w-5 h-5"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>`;
 
         let activeGame = null;
         let progressInterval = null;
 
-        // Render Cards
         function renderGames() {
             const grid = document.getElementById('games-grid');
-            let html = '';
-
-            games.forEach((game, index) => {
-                const featuresHtml = game.features.map(f => `
-                    <div class="flex items-center gap-2">
-                        ${goldStarSVG}
-                        <span class="text-[10px] font-bold text-neutral-400 uppercase">${f}</span>
-                    </div>
-                `).join('');
-
-                html += `
-                <div class="perspective-1000 w-full mb-10 lg:mb-0 card-wrapper">
-                    <div class="card-inner relative bg-[#0a0a0a] rounded-[50px] overflow-hidden border border-white/[0.05] flex flex-col shadow-[0_40px_80px_rgba(0,0,0,0.8)] hover:border-[#D4AF37]/40 group transform-gpu" style="transition: transform 0.1s ease-out">
-                        <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+            grid.innerHTML = games.map(game => `
+                <div class="perspective-1000 w-full mb-10 card-wrapper">
+                    <div class="card-inner relative bg-[#0a0a0a] rounded-[50px] overflow-hidden border border-white/[0.05] flex flex-col shadow-2xl hover:border-[#D4AF37]/40 transform-gpu transition-all duration-300">
                         <div class="h-[280px] w-full relative bg-gradient-to-b ${game.gradient} overflow-hidden">
-                            <img src="${game.image}" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700" alt="${game.title}" />
+                            <img src="${game.image}" class="w-full h-full object-cover opacity-80" />
                             <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
                         </div>
                         <div class="p-10 flex flex-col flex-grow">
                             <div class="flex items-center justify-between mb-6">
                                 <h2 class="text-4xl font-black tracking-tighter uppercase italic text-white">${game.title}</h2>
-                                <span class="text-[10px] font-black px-4 py-1.5 rounded-full border border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.2)]">${game.tag}</span>
+                                <span class="text-[10px] font-black px-4 py-1.5 rounded-full border border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 uppercase tracking-widest">${game.tag}</span>
                             </div>
-                            <div class="flex items-center gap-3 mb-6">
-                                <span class="text-[10px] font-bold text-neutral-500 tracking-widest uppercase bg-white/5 px-2 py-0.5 rounded">${game.version}</span>
-                                <span class="text-[10px] font-bold text-neutral-500 tracking-widest uppercase bg-white/5 px-2 py-0.5 rounded">${game.size}</span>
+                            <div class="flex gap-3 mb-6 font-bold text-neutral-500 text-[10px]">
+                                <span class="bg-white/5 px-2 py-0.5 rounded uppercase">${game.version}</span>
+                                <span class="bg-white/5 px-2 py-0.5 rounded uppercase">${game.size}</span>
                             </div>
                             <div class="grid grid-cols-2 gap-3 mb-8 bg-white/[0.02] p-6 rounded-3xl border border-white/[0.03]">
-                                ${featuresHtml}
+                                ${game.features.map(f => `<div class="flex items-center gap-2 text-[10px] font-bold text-neutral-400 uppercase">● ${f}</div>`).join('')}
                             </div>
-                            <div class="flex flex-col gap-3 mt-auto">
-                                <button onclick="startProcess('${game.id}')" class="w-full py-5 font-bold rounded-2xl flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl uppercase tracking-tighter" style="background-color: ${game.btnColor}; color: #000;">
-                                    ${androidSVG} Android Download
-                                </button>
-                                <button onclick="startProcess('${game.id}')" class="w-full py-5 bg-white/5 border border-white/10 text-white font-bold rounded-2xl flex items-center justify-center gap-3 active:scale-95 transition-all hover:bg-white/10 uppercase tracking-tighter">
-                                    ${appleSVG} iOS Download
-                                </button>
-                            </div>
+                            <button onclick="startProcess('${game.id}')" class="w-full py-5 font-black rounded-2xl active:scale-95 transition-all uppercase tracking-tighter text-sm" style="background-color: ${game.btnColor}; color: #000;">
+                                Download Mod APK
+                            </button>
                         </div>
                     </div>
                 </div>
-                `;
-            });
-
-            grid.innerHTML = html;
-            attach3DEvents();
+            `).join('');
+            
+            setup3D();
         }
 
-        // 3D Mouse Movement Logic
-        function attach3DEvents() {
-            const wrappers = document.querySelectorAll('.card-wrapper');
-            wrappers.forEach(wrapper => {
+        function setup3D() {
+            document.querySelectorAll('.card-wrapper').forEach(wrapper => {
                 const inner = wrapper.querySelector('.card-inner');
-                wrapper.addEventListener('mousemove', (e) => {
+                wrapper.addEventListener('mousemove', e => {
                     const rect = wrapper.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const rotateX = (y - rect.height / 2) / 12;
-                    const rotateY = (rect.width / 2 - x) / 12;
-                    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    inner.style.transform = `rotateY(${x * 15}deg) rotateX(${y * -15}deg)`;
                 });
                 wrapper.addEventListener('mouseleave', () => {
-                    inner.style.transform = `rotateX(0deg) rotateY(0deg)`;
+                    inner.style.transform = `rotateY(0deg) rotateX(0deg)`;
                 });
             });
         }
 
-        // Modal Logic
-        function showStep(stepId) {
-            ['step-injecting', 'step-verify', 'step-waiting', 'step-success'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-                document.getElementById(id).classList.remove('fade-in', 'zoom-in');
-            });
-            const target = document.getElementById(stepId);
-            target.classList.remove('hidden');
-            
-            // Add animation classes based on step
-            if(stepId === 'step-injecting' || stepId === 'step-waiting') target.classList.add('fade-in');
-            if(stepId === 'step-verify' || stepId === 'step-success') target.classList.add('zoom-in');
+        function showStep(id) {
+            ['step-injecting', 'step-verify', 'step-waiting', 'step-success'].forEach(s => document.getElementById(s).classList.add('hidden'));
+            const el = document.getElementById(id);
+            el.classList.remove('hidden');
+            el.classList.add(id === 'step-verify' || id === 'step-success' ? 'zoom-in' : 'fade-in');
         }
 
-        function startProcess(gameId) {
-            activeGame = games.find(g => g.id === gameId);
-            document.getElementById('modal-container').classList.remove('hidden');
-            document.getElementById('modal-container').classList.add('flex');
+        function startProcess(id) {
+            activeGame = games.find(g => g.id === id);
+            document.getElementById('modal-container').classList.replace('hidden', 'flex');
             showStep('step-injecting');
             
-            let progress = 0;
-            const bar = document.getElementById('progress-bar');
-            const text = document.getElementById('progress-text');
-            
+            let p = 0;
             clearInterval(progressInterval);
             progressInterval = setInterval(() => {
-                progress += 1;
-                bar.style.width = `${progress}%`;
-                text.innerText = `${progress}% PREPARING`;
-                
-                if(progress >= 100) {
+                p++;
+                document.getElementById('progress-bar').style.width = p + '%';
+                document.getElementById('progress-text').innerText = p + '% COMPILING DATA';
+                if(p >= 100) {
                     clearInterval(progressInterval);
                     setTimeout(() => showStep('step-verify'), 200);
                 }
-            }, 20); // Speed of progress bar
+            }, 30);
         }
 
         function handleVerifyClick() {
-            if(!activeGame) return;
-            
-            // Open CPA offer in new tab
             window.open(activeGame.cpaUrl, '_blank');
-            
-            // Show waiting screen
             showStep('step-waiting');
-            
-            // Simulate completion time (12 seconds)
             setTimeout(() => {
-                // Prepare final download screen
                 document.getElementById('success-filename').innerText = activeGame.fileName;
-                const dlBtn = document.getElementById('direct-download-btn');
-                dlBtn.href = activeGame.directDownloadUrl;
-                dlBtn.download = activeGame.fileName;
-                
+                document.getElementById('direct-download-btn').href = activeGame.directDownloadUrl;
                 showStep('step-success');
-            }, 12000);
+            }, 10000);
         }
 
         function closeModal() {
-            document.getElementById('modal-container').classList.add('hidden');
-            document.getElementById('modal-container').classList.remove('flex');
+            document.getElementById('modal-container').classList.replace('flex', 'hidden');
             clearInterval(progressInterval);
         }
 
-        // Initialize App
         window.onload = renderGames;
     </script>
 </body>
 </html>
-
